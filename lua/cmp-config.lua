@@ -42,10 +42,10 @@ end,
 sources = {
     -- { name = "nvim_lua" },
     -- { name = "cmp_tabnine" },
-    { name = "nvim_lsp", max_item_count = 10},
+    { name = "nvim_lsp", max_item_count = 10, keyword_length = 2},
     { name = "path" },
     { name = "vsnip" },
-    { name = "buffer", keyword_length = 3 },
+    { name = "buffer", keyword_length = 4 },
 },
 formatting = {
   -- Youtube: How to set up nice formatting for your sources.
@@ -94,6 +94,9 @@ for _, lsp in ipairs(servers) do
         capabilities = capabilities
     }
 end
+
+require "lsp_signature".setup()
+
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type

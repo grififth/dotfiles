@@ -14,16 +14,15 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " icons
     Plug 'ryanoasis/vim-devicons'
 
-    " sensible
-    Plug 'tpope/vim-sensible'
-
     " Theme
     Plug 'ayu-theme/ayu-vim'
-    Plug 'tribela/vim-transparent'
+    " Plug 'tribela/vim-transparent'
     Plug 'jacoborus/tender.vim'
     Plug 'glepnir/dashboard-nvim'
     Plug 'romgrk/barbar.nvim'
     Plug 'folke/tokyonight.nvim'
+    Plug 'catppuccin/nvim'
+    Plug 'rebelot/kanagawa.nvim'
 
     " IndentLine
     Plug 'Yggdroot/indentLine'
@@ -46,6 +45,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'onsails/lspkind-nvim'
 
+    Plug 'ray-x/lsp_signature.nvim'
+
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/cmp-vsnip'
 
@@ -53,6 +54,12 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     " Discord RPC
-    Plug 'andweeb/presence.nvim'
+    " Plug 'andweeb/presence.nvim'
+
+    " Git Stuff
+    Plug 'mhinz/vim-signify'
+
+    " Floating Terminal
+    Plug 'voldikss/vim-floaterm'
 
 call plug#end()

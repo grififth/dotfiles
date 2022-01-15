@@ -26,8 +26,27 @@ set relativenumber
 " theme settings
 set termguicolors
 
+lua << END
+-- Default options:
+require('kanagawa').setup({
+    undercurl = true,           -- enable undercurls
+    commentStyle = "italic",
+    functionStyle = "NONE",
+    keywordStyle = "italic",
+    statementStyle = "bold",
+    typeStyle = "NONE",
+    variablebuiltinStyle = "italic",
+    specialReturn = true,       -- special highlight for the return keyword
+    specialException = true,    -- special highlight for exception handling keywords 
+    transparent = true,        -- do not set background color
+    colors = {},
+    overrides = {},
+})
+
+vim.cmd("colorscheme kanagawa")
+
+END
 syntax enable
-colorscheme tokyonight
 
 lua << END
 require'lualine'.setup()
@@ -53,26 +72,16 @@ autocmd FileType cpp setlocal commentstring=//\ %s
 
 " Open the existing NERDTree on each new tab.
 autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+let NERDTreeMinimalUI = 1
+let NERDTreeAutoCenter = 1
+let NERDTreeShowHidden = 1
+
+" NEOVIDE
+let neovide_remember_window_size = v:true
+set guifont=Delugia:h12
+let g:neovide_fullscreen=v:false
 
 " Dashboard
-let g:dashboard_custom_header=[
-    \'',
-    \'⡆⣐⢕⢕⢕⢕⢕⢕⢕⢕⠅⢗⢕⢕⢕⢕⢕⢕⢕⠕⠕⢕⢕⢕⢕⢕⢕⢕⢕⢕',
-    \'⢐⢕⢕⢕⢕⢕⣕⢕⢕⠕⠁⢕⢕⢕⢕⢕⢕⢕⢕⠅⡄⢕⢕⢕⢕⢕⢕⢕⢕⢕',
-    \'⢕⢕⢕⢕⢕⠅⢗⢕⠕⣠⠄⣗⢕⢕⠕⢕⢕⢕⠕⢠⣿⠐⢕⢕⢕⠑⢕⢕⠵⢕',
-    \'⢕⢕⢕⢕⠁⢜⠕⢁⣴⣿⡇⢓⢕⢵⢐⢕⢕⠕⢁⣾⢿⣧⠑⢕⢕⠄⢑⢕⠅⢕',
-    \'⢕⢕⠵⢁⠔⢁⣤⣤⣶⣶⣶⡐⣕⢽⠐⢕⠕⣡⣾⣶⣶⣶⣤⡁⢓⢕⠄⢑⢅⢑',
-    \'⠍⣧⠄⣶⣾⣿⣿⣿⣿⣿⣿⣷⣔⢕⢄⢡⣾⣿⣿⣿⣿⣿⣿⣿⣦⡑⢕⢤⠱⢐',
-    \'⢠⢕⠅⣾⣿⠋⢿⣿⣿⣿⠉⣿⣿⣷⣦⣶⣽⣿⣿⠈⣿⣿⣿⣿⠏⢹⣷⣷⡅⢐',
-    \'⣔⢕⢥⢻⣿⡀⠈⠛⠛⠁⢠⣿⣿⣿⣿⣿⣿⣿⣿⡀⠈⠛⠛⠁⠄⣼⣿⣿⡇⢔',
-    \'⢕⢕⢽⢸⢟⢟⢖⢖⢤⣶⡟⢻⣿⡿⠻⣿⣿⡟⢀⣿⣦⢤⢤⢔⢞⢿⢿⣿⠁⢕',
-    \'⢕⢕⠅⣐⢕⢕⢕⢕⢕⣿⣿⡄⠛⢀⣦⠈⠛⢁⣼⣿⢗⢕⢕⢕⢕⢕⢕⡏⣘⢕',
-    \'⢕⢕⠅⢓⣕⣕⣕⣕⣵⣿⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣷⣕⢕⢕⢕⢕⡵⢀⢕⢕',
-    \'⢑⢕⠃⡈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢃⢕⢕⢕',
-    \'⣆⢕⠄⢱⣄⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⢁⢕⢕⠕⢁',
-    \'⣿⣦⡀⣿⣿⣷⣶⣬⣍⣛⣛⣛⡛⠿⠿⠿⠛⠛⢛⣛⣉⣭⣤⣂⢜⠕⢑⣡⣴⣿',
-    \'',
-    \]
 lua << EOF
 vim.g.dashboard_custom_section = {
     b = {description = {' New File         SPC f n'}, command = 'enew'},
@@ -92,8 +101,8 @@ set mouse+=a
 let bufferline.icons = v:false
 
 " Compile Commands
-autocmd filetype cpp nnoremap <F8> :w <bar> !g++ -std=c++17 -DLOCAL %
-autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++17 -DLOCAL % <cr> :vnew <bar> :te "./a.out" <cr><cr>
+autocmd filetype cpp nnoremap <F8> :w <bar> !g++ -std=c++20 -DLOCAL %
+autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++20 -DLOCAL % <cr> :vnew <bar> :te "./a.out" <cr><cr>
 autocmd filetype cpp nnoremap <F10> :vnew <bar> :te "./a.out" <cr>
 autocmd filetype python nnoremap <F9> :w <bar> :te python3 %:t <cr>
 
@@ -121,3 +130,9 @@ nnoremap <leader>tc :Colors<CR>
 nnoremap <leader>fh :History<CR>
 nnoremap <leader>fn :enew<CR>
 nnoremap <leader>fc :Files /mnt/c/Users/stephen/Documents/cp-library<CR>
+
+" Floating terminal
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
